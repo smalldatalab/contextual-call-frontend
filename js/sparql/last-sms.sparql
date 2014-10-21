@@ -1,0 +1,45 @@
+
+
+# Last sms send or receive
+PREFIX schema: <http://schema.org/>
+PREFIX f: <http://lifestreams.smalldata.io/function#>
+
+SELECT *
+{
+
+
+{
+    SELECT ?date (MAX (?start) AS ?last)
+
+    {
+        {?action a schema:SendAction;} UNION
+        {?action a schema:ReceiveAction;}
+        ?action schema:startTime ?start;
+                schema:object ?obj.
+        ?obj a schema:SmsMessage.
+        
+        # compute duration
+        BIND (f:toLocalDate(?start) as ?date)
+    } group by ?date
+
+    }
+      {?action a schema:SendAction;} UNION
+     {?action a schema:ReceiveAction;}
+     ?action  schema:startTime ?last;
+              schema:object ?obj.
+     {?action schema:recipient ?p} UNION
+     {?action schema:sender ?p}
+     OPTIONAL {?action schema:recipient ?recipient}
+     OPTIONAL {?action schema:sender ?sender}
+     BIND (IF(BOUND(?sender), "Receive", "Send") AS ?type)
+  
+  
+     OPTIONAL {?p schema:name ?name}
+     ?p schema:telephone ?telephone.
+     ?obj a schema:SmsMessage;
+          schema:text ?body.
+     
+    
+    
+
+    }

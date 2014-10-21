@@ -1,0 +1,39 @@
+# Last app used
+PREFIX schema: <http://schema.org/>
+PREFIX f: <http://lifestreams.smalldata.io/function#>
+
+SELECT *
+{
+
+
+ {
+  SELECT ?date (MAX (?start) AS ?last)
+
+  {
+    # get "Use action", the start/end times, and the object being used
+    ?use a schema:UseAction;
+          schema:object ?app;
+          schema:startTime ?start;
+          schema:endTime ?end.
+    # the object must be a MobileApp
+    ?app a schema:MobileApplication.
+    # bind the name of the app as ?app_name
+    ?app schema:name ?app_name.
+
+    # compute duration
+    BIND (f:toLocalDate(?start) as ?date)
+  } group by ?date
+
+ }
+    ?use a schema:UseAction;
+          schema:object ?app;
+          schema:startTime ?last;
+          schema:endTime ?end.
+  # the object must be a MobileApp
+  ?app a schema:MobileApplication.
+  # bind the name of the app as ?app_name
+  ?app schema:name ?app_name.
+  # compute duration
+  BIND( (f:inMillis(?end) - f:inMillis(?last)) / 60000 AS ?minutes)
+
+}

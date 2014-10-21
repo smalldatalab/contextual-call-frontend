@@ -1,0 +1,35 @@
+# last travel
+PREFIX schema: <http://schema.org/>
+PREFIX sdl: <http://lifestreams.smalldata.io/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX f: <http://lifestreams.smalldata.io/function#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT *
+{
+
+  {SELECT (MAX(?start) AS ?last_travel_start) ?date
+
+    {
+		?stay a schema:TravelAction;
+        # start time
+        schema:startTime ?start;
+        # end time
+        schema:endTime ?end.
+		BIND (f:toLocalDate(?start) as ?date)
+    } GROUP BY ?date
+  }
+
+  	?stay a schema:TravelAction;
+      # start time
+      schema:startTime ?last_travel_start;
+      # end time
+      schema:endTime ?end;
+      schema:fromLocation ?from;
+      schema:toLocation ?to.
+    ?from schema:latitude ?from_lat;
+          schema:longitude ?from_lng.
+    ?to schema:latitude ?to_lat;
+          schema:longitude ?to_lng.
+
+} order by ?date

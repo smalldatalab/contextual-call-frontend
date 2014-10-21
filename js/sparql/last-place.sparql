@@ -1,0 +1,133 @@
+
+#Time return home, Time leave home, last place not home
+PREFIX schema: <http://schema.org/>
+PREFIX sdl: <http://lifestreams.smalldata.io/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX f: <http://lifestreams.smalldata.io/function#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?date ?return_home ?leave_home ?last_stay_start ?end ?lat ?lng
+{
+
+    {
+    SELECT (MAX(?start) AS ?last_stay_start)
+    (SAMPLE(?time_leave_home) AS ?leave_home)
+    (SAMPLE(?time_return_home) AS ?return_home)
+    ?date
+    {
+
+    {SELECT
+    # mobility features
+    ?local_date
+    (?first_seg_end AS ?time_leave_home)
+    (?last_seg_start AS ?time_return_home)
+    (?back_home_duration AS ?backhome_dur)
+    (?home AS ?if_detect_home)
+
+    {
+
+    # get the end time of the first segment of a day
+    {
+    SELECT (MIN(?e) AS ?first_seg_end) ?local_date
+
+    WHERE {
+    ?stay a schema:StayAction;
+    schema:endTime ?e.
+    BIND (f:toLocalDate(?e) as ?local_date)
+    #?stay f:temporalOpForDate ('&&' '[' '%from' '%to' ']').
+
+    }GROUP BY ?local_date
+
+    }
+    FILTER (BOUND(?first_seg_end))
+    # get the start time of the last segment of a day
+    {
+    SELECT (MAX(?s) AS ?last_seg_start) ?local_date
+
+    WHERE {
+    ?stay a schema:StayAction;
+    schema:startTime ?s.
+    BIND (f:toLocalDate(?s) as ?local_date)
+    #?stay f:temporalOpForDate ('&&' '[' '%from' '%to' ']').
+
+    }GROUP BY ?local_date
+
+    }
+    FILTER (BOUND(?last_seg_start))
+
+    # get first segment
+    ?first_stay a schema:StayAction;
+    schema:endTime ?first_seg_end;
+    schema:startTime ?start;
+    schema:location ?firstPlace.
+    ?firstPlace schema:latitude ?lat.
+    ?firstPlace schema:longitude ?lng.
+    ?last_stay a schema:StayAction;
+
+
+    # get last segment
+    schema:startTime ?last_seg_start;
+    schema:endTime ?end;
+    schema:location ?lastPlace.
+
+    ?lastPlace schema:latitude ?lat2.
+    ?lastPlace schema:longitude ?lng2.
+
+    # only assume we find the home location if the first segment is of the same location as the last segment
+    BIND (IF(f:distanceInMeter(?lat, ?lng, ?lat2, ?lng2) < 50, "true"^^xsd:boolean,
+    "false"^^xsd:boolean ) AS ?home).
+    # check if the user went back home
+    OPTIONAL{
+    BIND (if( (?last_seg_start > ?first_seg_end), ?last_seg_start, ?first_seg_end) AS ?last_seg_start2)
+    ?seg f:temporalOpForDateTime ('<@' '[' ?first_seg_end ?last_seg_start2 ']').
+
+    ?seg a schema:StayAction;
+    schema:startTime ?ostart;
+    schema:endTime ?oend;
+    schema:location ?oloc.
+    ?oloc schema:latitude ?olat.
+    ?oloc schema:longitude ?olng.
+
+
+    #FILTER (?first_seg_end < ?ostart && ?last_seg_start > ?oend ).
+    FILTER (f:distanceInMeter(?olat, ?olng, ?lat2, ?lng2) < 50).
+
+    BIND ( (f:inMillis(?oend) - f:inMillis(?ostart)) / 60000.0 AS ?back_home_duration).
+    }
+
+    } # end of WHERE
+    }# end of SELECT subquery
+
+    ?stay a schema:StayAction;
+    # start time
+    schema:startTime ?start;
+    schema:endTime ?end;
+    BIND (f:toLocalDate(?start) AS ?date)
+    FILTER (?end <= ?time_return_home && ?start >= ?time_leave_home)
+
+    } GROUP BY ?date
+
+
+
+
+    }
+
+
+
+    # get the last place user stay which is not home
+    ?stay a schema:StayAction;
+    # location
+    schema:location ?place;
+    # start time
+    schema:startTime ?last_stay_start;
+    # end time
+    schema:endTime ?end.
+    ?place schema:latitude ?lat;
+    schema:longitude ?lng.
+
+
+
+
+
+
+} order by ?date

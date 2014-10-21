@@ -1,0 +1,34 @@
+# Compute the amount of time using different apps
+PREFIX schema: <http://schema.org/>
+PREFIX f: <http://lifestreams.smalldata.io/function#>
+
+SELECT *
+{
+
+
+ {
+  SELECT ?date (MAX (?start) AS ?last)
+
+  {
+    # get "Use action", the start/end times, and the object being used
+    ?use a schema:BrowseAction;
+          schema:object ?webpage;
+          schema:startTime ?start.
+    # the object must be a MobileApp
+    ?webpage a schema:WebPage.
+
+    # compute duration
+    BIND (f:toLocalDate(?start) as ?date)
+  } group by ?date
+
+ }
+    ?use a schema:BrowseAction;
+          schema:object ?webpage;
+          schema:startTime ?last;
+          schema:endTime ?end.
+  # the object must be a MobileApp
+   ?webpage a schema:WebPage;
+            schema:title ?title.
+
+
+}

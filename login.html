@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/jquery-ui.min.css"/>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <title>Contextual Recall</title>
+
+    <!-- Custom CSS -->
+    <link href="css/login.css" rel="stylesheet">
+
+  </head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- About Section -->
+    <section id="context" class="container content-section text-center">
+        <div id="user" class="row">
+            <div class="col-md-4 text-center col-md-offset-4">
+                <h4>I am:</h4>
+                <input type="text" id="userid" placeholder="Login ID">
+            </div>
+        </div>
+        <br>
+        <div id="date-range" class="row">
+            <div class="col-md-2 text-center col-md-offset-3">
+                <input type="text" id="fromdatepicker" placeholder="Start Date">
+            </div>
+            <div class="col-md-2 text-center">
+                <h4 id="msg">To</h4>
+            </div>
+            <div class="col-md-2 text-center">
+                <input type="text" id="todatepicker" placeholder="End Date">
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <button id="login" type="button" class="btn btn-default">Login</button>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <script>
+        $( "#fromdatepicker" ).datepicker();
+        $( "#todatepicker" ).datepicker();
+    </script>
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/grayscale.js"></script>
+    <script src="js/login.js"></script>
+
+</body>
+
+</html>

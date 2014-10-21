@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/jquery-ui.min.css"/>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="https://rsvpjs-builds.s3.amazonaws.com/rsvp-latest.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/0.0.7/sprintf.js"></script>
+    <title>Contextual Recall</title>
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
+
+  </head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container text-center">
+            <button id="prev" type="button" class="btn btn-default">&lt&lt</button>
+            <span id="date"></span>
+            <button id="next" type="button" class="btn btn-default">&gt&gt</button>
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- About Section -->
+    <section id="context" class="container content-section text-center">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h4 id="loc">Location</h4>
+            </div>
+            <div class="col-md-4 text-center">
+                <h4 id="move">Time</h4>
+            </div>
+            <div class="col-md-4 text-center">
+                <h4 id="app">Application</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h4 id="call">Phonebook</h4>
+            </div>
+            <div class="col-md-4 text-center">
+                <h4 id="msg">Texts</h4>
+            </div>
+            <div class="col-md-4 text-center">
+                <h4 id = "net">Internet</h4>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="recall" class="container content-section">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h4>When did you go to sleep?</h4>
+                <form class="times">
+                    <input id="st-no-re" name="sleep" type="radio" checked>I don't remember<br>
+                    <input id="st-re" name="sleep" type="radio">I slept at:
+                    <input type="time" id="sleep-time">
+                </form>
+            </div>
+            <div class="col-md-4 text-center">
+                <h4>When did you wake up?</h4>
+                <form class="times">
+                    <input id="wt-no-re" name="wakeup" type="radio" checked>I don't remember<br>
+                    <input id="wt-re" name="wakeup" type="radio">I woke up at:
+                    <input type="time" id="wakeup-time">
+                </form>
+            </div>
+            <div class="col-md-4 text-center">
+                <h4>How was the quality of your sleep?</h4>
+                <form>
+                    <input id="sq-no-re" name="quality" type="radio" checked>I don't remember<br>
+                    <input id="sq-re" name="quality" type="radio">
+                        <b>Poor</b>
+                        <div class="btn-group">
+                            <button id="sq1" type="button" class="btn btn-default">1</button>
+                            <button id="sq2" type="button" class="btn btn-default">2</button>
+                            <button id="sq3" type="button" class="btn btn-default">3</button>
+                            <button id="sq4" type="button" class="btn btn-default">4</button>
+                            <button id="sq5" type="button" class="btn btn-default">5</button>
+                        </div>
+                    <b>Good</b>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/grayscale.js"></script>
+    <script src="js/fetch-data.js"></script>
+    <script src="js/index.js"></script>
+
+
+
+</body>
+
+</html>

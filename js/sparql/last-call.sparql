@@ -1,0 +1,36 @@
+
+
+# Last call used
+PREFIX schema: <http://schema.org/>
+PREFIX f: <http://lifestreams.smalldata.io/function#>
+
+SELECT *
+{
+
+
+{
+    SELECT ?date (MAX (?start) AS ?last)
+
+    {
+    # get "Call action" and Receive Call, the start/end times, and the object being used
+    {?call a schema:CallAction;} UNION
+    {?call a schema:ReceiveCallAction;}
+    ?call     schema:startTime ?start.
+    # compute duration
+    BIND (f:toLocalDate(?start) as ?date)
+    } group by ?date
+
+    }
+    {?call a schema:CallAction;} UNION
+    {?call a schema:ReceiveCallAction;}
+    ?call     schema:startTime ?last;
+    schema:endTime ?end.
+    {?call schema:recipient ?p} UNION
+    {?call schema:caller ?p}
+    OPTIONAL
+    {?p schema:name ?name.}
+    ?p schema:telephone ?telephone.
+
+    BIND( (f:inMillis(?end) - f:inMillis(?last)) / 60000 AS ?minutes)
+
+    }
