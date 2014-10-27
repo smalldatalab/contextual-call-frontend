@@ -7,10 +7,10 @@
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/moment.min.js"></script>
-    <script src="https://rsvpjs-builds.s3.amazonaws.com/rsvp-latest.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/0.0.7/sprintf.js"></script>
-   <script src="js/jquery.parseurl.min.js"></script>
+      <script src="https://rsvpjs-builds.s3.amazonaws.com/rsvp-latest.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/0.0.7/sprintf.js"></script>
+      <script src="js/jquery.parseurl.min.js"></script>
     <title>Contextual Recall</title>
 
     <!-- Custom CSS -->
@@ -30,34 +30,53 @@
         <!-- /.container -->
     </nav>
 
-    <!-- About Section -->
+    <!-- Context -->
     <section id="context" class="container content-section text-center">
         <div class="row">
-            <div class="col-md-4 text-center">
-                <h4 id="loc">Location</h4>
+            <div class="col-md-4 text-center context-bubble">
+                <img src="icons/map.png">
+                <p id="loc">
+                    Location
+                </p>
             </div>
-            <div class="col-md-4 text-center">
-                <h4 id="move">Time</h4>
+            <div class="col-md-4 text-center context-bubble">
+                <img src="icons/walk.png">
+                <p id="move">
+                    Movement
+                </p>
             </div>
-            <div class="col-md-4 text-center">
-                <h4 id="app">Application</h4>
+            <div class="col-md-4 text-center context-bubble">
+                <img src="icons/app.png">
+                <p id="app">
+                    Application
+                </p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 text-center">
-                <h4 id="call">Phonebook</h4>
+            <div class="col-md-4 text-center context-bubble">
+                <img src="icons/phone.png">
+                <p id="call">
+                    Phonebook
+                </p>
             </div>
-            <div class="col-md-4 text-center">
-                <h4 id="msg">Texts</h4>
+            <div class="col-md-4 text-center context-bubble">
+                <img src="icons/text.png">
+                <p id="msg">
+                    Texts
+                </p>
             </div>
-            <div class="col-md-4 text-center">
-                <h4 id = "net">Internet</h4>
+            <div class="col-md-4 text-center context-bubble">
+                <img src="icons/internet.png">
+                <p id="net">
+                    Internet
+                </p>
             </div>
         </div>
     </section>
 
     <hr>
 
+    <!-- Recall -->
     <section id="recall" class="container content-section">
         <div class="row">
             <div class="col-md-4 text-center">
@@ -93,18 +112,18 @@
                 </form>
             </div>
         </div>
+        <div class="text-center">
+            <button id="submit" type="button" class="btn btn-default">Submit</button>
+        </div>
     </section>
 
     <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
 
-
     <!-- Custom Theme JavaScript -->
     <script src="js/grayscale.js"></script>
     <script src="js/fetch-data.js"></script>
     <script src="js/index.js"></script>
-
-
 
 </body>
 
