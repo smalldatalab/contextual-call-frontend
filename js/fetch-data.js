@@ -1,5 +1,6 @@
 var endpoint = "http://lifestreams.smalldata.io/oauth/query";
-
+var uid = $.parseUrl(window.location).query["uid"];
+var user = uid ? uid : "ba99e7fe-2914-4581-ace5-b0eef52391c2";
 var get = function(url, params){
     return new RSVP.Promise(function(resolve, reject) {
 
@@ -60,7 +61,7 @@ var fetchData = function(date, query){
                 "start": date.format('YYYY-MM-DD'),
                 "end": moment(date).add(1, 'days').format('YYYY-MM-DD'),
                 "types": ["StayAction", "TravelAction", "UseAction"],
-                "user" : "ba99e7fe-2914-4581-ace5-b0eef52391c2"}
+                "user" : user}
         )})
         .then(function(data){
             return new RSVP.Promise(function(resolve, reject) {

@@ -2,15 +2,15 @@
 
 try{
 
-    var loginInfo = JSON.parse(window.name)
-
+    var loginInfo = $.parseUrl(window.location).query;
+    var id = loginInfo.id ? loginInfo.id : loginInfo.uid;
+    var start = moment(loginInfo.start, "MM-DD-YYYY");
+    var end = moment(loginInfo.end, "MM-DD-YYYY");
 }catch(e){
+    alert("Configuration Error.");
     window.location.href = "login.html";
 }
-var id = loginInfo.id
-
-var start = moment(loginInfo.start, "MM-DD-YYYY")
-var end = moment(loginInfo.end, "MM-DD-YYYY")
+// use either id (manually input by the user) or uid (returned by googld sign-in)
 
 var contextModels = [];
 var recallModels = [];
@@ -184,14 +184,3 @@ RSVP.all(cuesPromises).then(function(contextModels){
 
 }
 );
-// populate contextModels using server GET requests here
-
-contextModels[i] = {
-    locStr : "You were at 219 Maple Ave. from 17:30 to 19:30.",
-    moveStr : "You traveled from Ithaca (12:15) to NYC (18:30) by walk.",
-    appStr : "Facebook is the last application that you used.",
-    callStr : "You called Peter at 18:45 for 15 mins.",
-    msgStr : "You sent an SMS to Andy at 20:30 \"I will meet you tomorrow in class.\"",
-    netStr : "You browsed BBC.com at 11:35PM."
-};
-
