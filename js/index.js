@@ -3,14 +3,19 @@
 try{
 
     var loginInfo = $.parseUrl(window.location).query;
+    // use either id (manually input by the user) or uid (returned by googld sign-in)
     var id = loginInfo.id ? loginInfo.id : loginInfo.uid;
     var start = moment(loginInfo.start, "MM-DD-YYYY");
     var end = moment(loginInfo.end, "MM-DD-YYYY");
+    // make sure we have received these parameters.
+    if(!(id && loginInfo.start && loginInfo.end && start && end)){
+        window.location.href = "login.html";
+    }
 }catch(e){
     alert("Configuration Error.");
     window.location.href = "login.html";
 }
-// use either id (manually input by the user) or uid (returned by googld sign-in)
+
 
 var contextModels = [];
 var recallModels = [];
