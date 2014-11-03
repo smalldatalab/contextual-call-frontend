@@ -21,11 +21,12 @@ var contextModels = [];
 var recallModels = [];
 
 var cur = moment(loginInfo.start, "MM-DD-YYYY");
+var next = moment(loginInfo.start, "MM-DD-YYYY").add(1, 'days');
 var index = 0;
 var range = end.diff(start, 'days');
 
 var cuesPromises = [];
-for (var i = 0; i <= range; i++) {
+for (var i = 0; i < range; i++) {
     var date = moment(loginInfo.start, "MM-DD-YYYY").add(i, 'days')
     recallModels[i] = {
         date : date.format("MM/DD/YYYY"),
@@ -46,24 +47,31 @@ RSVP.all(cuesPromises).then(function(contextModels){
 
         var resetContext = function() {
 
-            $('#date').html(cur.format("dddd, MMMM Do YYYY"));
+            $('#date').html(cur.format("dddd, MMMM Do YYYY") + ' to ' + next.format("dddd, MMMM Do YYYY"));
 
             if (index == 0)
                 $('#prev').addClass('disabled')
             else
                 $('#prev').removeClass('disabled')
 
-            if (range - index == 0)
+            if (range - index - 1 == 0)
                 $('#next').addClass('disabled')
             else
                 $('#next').removeClass('disabled')
 
-            $("#context #loc").html(contextModels[index].locStr);
-            $("#context #move").html(contextModels[index].moveStr);
-            $("#context #app").html(contextModels[index].appStr);
-            $("#context #call").html(contextModels[index].callStr);
-            $("#context #msg").html(contextModels[index].msgStr);
-            $("#context #net").html(contextModels[index].netStr);
+            $("#before #loc").html(contextModels[index].locStr);
+            $("#before #move").html(contextModels[index].moveStr);
+            $("#before #app").html(contextModels[index].appStr);
+            $("#before #call").html(contextModels[index].callStr);
+            $("#before #msg").html(contextModels[index].msgStr);
+            $("#before #net").html(contextModels[index].netStr);
+
+            $("#after #loc").html(contextModels[index + 1].locStr);
+            $("#after #move").html(contextModels[index + 1].moveStr);
+            $("#after #app").html(contextModels[index + 1].appStr);
+            $("#after #call").html(contextModels[index + 1].callStr);
+            $("#after #msg").html(contextModels[index + 1].msgStr);
+            $("#after #net").html(contextModels[index + 1].netStr);
         }
 
         var resetRecall = function() {
@@ -164,6 +172,7 @@ RSVP.all(cuesPromises).then(function(contextModels){
         $('#prev').click(function () {
             saveRecall();
             cur.subtract(1, 'days');
+            next.subtract(1, 'days');
             index--;
             setup();
         })
@@ -171,6 +180,7 @@ RSVP.all(cuesPromises).then(function(contextModels){
         $('#next').click(function () {
             saveRecall();
             cur.add(1, 'days');
+            next.add(1, 'days');
             index++;
             setup();
         })

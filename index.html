@@ -20,110 +20,150 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        <div class="container text-center">
-            <button id="prev" type="button" class="btn btn-default">&lt&lt</button>
-            <span id="date"></span>
-            <button id="next" type="button" class="btn btn-default">&gt&gt</button>
-        </div>
-        <!-- /.container -->
-    </nav>
+  <!-- Navigation -->
+  <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container text-center">
+      <button id="prev" type="button" class="btn btn-default">&lt&lt</button>
+      <span id="date"></span>
+      <button id="next" type="button" class="btn btn-default">&gt&gt</button>
+    </div>
+    <!-- /.container -->
+  </nav>
 
-    <!-- Context -->
-    <section id="context" class="container content-section text-center">
-        <div class="row">
-            <div class="col-md-4 text-center context-bubble">
-                <img src="icons/map.png">
-                <p id="loc">
-                    Location
-                </p>
-            </div>
-            <div class="col-md-4 text-center context-bubble">
-                <img src="icons/walk.png">
-                <p id="move">
-                    Movement
-                </p>
-            </div>
-            <div class="col-md-4 text-center context-bubble">
-                <img src="icons/app.png">
-                <p id="app">
-                    Application
-                </p>
-            </div>
+  <!-- Context -->
+  <section class="container content-section text-center">
+    <div class="row">
+      <!-- Before section -->
+      <div id="before" class="col-md-4 text-center">
+        <h4>Before Sleep</h4>
+        <div class="context-bubble">
+          <img src="icons/map.png">
+          <p id="loc">
+            Location
+          </p>
         </div>
-        <div class="row">
-            <div class="col-md-4 text-center context-bubble">
-                <img src="icons/phone.png">
-                <p id="call">
-                    Phonebook
-                </p>
-            </div>
-            <div class="col-md-4 text-center context-bubble">
-                <img src="icons/text.png">
-                <p id="msg">
-                    Texts
-                </p>
-            </div>
-            <div class="col-md-4 text-center context-bubble">
-                <img src="icons/internet.png">
-                <p id="net">
-                    Internet
-                </p>
-            </div>
+        <div class="context-bubble">
+          <img src="icons/walk.png">
+          <p id="move">
+            Movement
+          </p>
         </div>
-    </section>
-
-    <hr>
-
-    <!-- Recall -->
-    <section id="recall" class="container content-section">
-        <div class="row">
-            <div class="col-md-4 text-center">
-                <h4>When did you go to sleep?</h4>
-                <form class="times">
-                    <input id="st-no-re" name="sleep" type="radio" checked>I don't remember<br>
-                    <input id="st-re" name="sleep" type="radio">I slept at:
-                    <input type="time" id="sleep-time">
-                </form>
-            </div>
-            <div class="col-md-4 text-center">
-                <h4>When did you wake up?</h4>
-                <form class="times">
-                    <input id="wt-no-re" name="wakeup" type="radio" checked>I don't remember<br>
-                    <input id="wt-re" name="wakeup" type="radio">I woke up at:
-                    <input type="time" id="wakeup-time">
-                </form>
-            </div>
-            <div class="col-md-4 text-center">
-                <h4>How was the quality of your sleep?</h4>
-                <form>
-                    <input id="sq-no-re" name="quality" type="radio" checked>I don't remember<br>
-                    <input id="sq-re" name="quality" type="radio">
-                        <b>Poor</b>
-                        <div class="btn-group">
-                            <button id="sq1" type="button" class="btn btn-default">1</button>
-                            <button id="sq2" type="button" class="btn btn-default">2</button>
-                            <button id="sq3" type="button" class="btn btn-default">3</button>
-                            <button id="sq4" type="button" class="btn btn-default">4</button>
-                            <button id="sq5" type="button" class="btn btn-default">5</button>
-                        </div>
-                    <b>Good</b>
-                </form>
-            </div>
+        <div class="context-bubble">
+          <img src="icons/app.png">
+          <p id="app">
+            Application
+          </p>
         </div>
-        <div class="text-center">
-            <button id="submit" type="button" class="btn btn-default">Submit</button>
+        <div class="context-bubble">
+          <img src="icons/phone.png">
+          <p id="call">
+            Phonebook
+          </p>
         </div>
-    </section>
+        <div class="context-bubble">
+          <img src="icons/text.png">
+          <p id="msg">
+            Texts
+          </p>
+        </div>
+        <div class="context-bubble">
+          <img src="icons/internet.png">
+          <p id="net">
+            Internet
+          </p>
+        </div>
+      </div> <!-- /before -->
 
-    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+      <div class="vr"></div>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="js/grayscale.js"></script>
-    <script src="js/fetch-data.js"></script>
-    <script src="js/index.js"></script>
+      <!-- Recall section -->
+      <div id="recall" class="col-md-4 text-center">
+        <div class="query">
+          <h4>When did you go to sleep?</h4>
+          <form class="times">
+            <input id="st-no-re" name="sleep" type="radio" checked>I don't remember<br>
+            <input id="st-re" name="sleep" type="radio">I slept at:
+            <input type="time" id="sleep-time">
+          </form>
+        </div>
+        <div class="query">
+          <h4>When did you wake up?</h4>
+          <form class="times">
+            <input id="wt-no-re" name="wakeup" type="radio" checked>I don't remember<br>
+            <input id="wt-re" name="wakeup" type="radio">I woke up at:
+            <input type="time" id="wakeup-time">
+          </form>
+        </div>
+        <div class="query">
+          <h4>How was the quality of your sleep?</h4>
+          <form>
+            <input id="sq-no-re" name="quality" type="radio" checked>I don't remember<br>
+            <input id="sq-re" name="quality" type="radio">
+              <b>Poor</b>
+              <div class="btn-group">
+                <button id="sq1" type="button" class="btn btn-default">1</button>
+                <button id="sq2" type="button" class="btn btn-default">2</button>
+                <button id="sq3" type="button" class="btn btn-default">3</button>
+                <button id="sq4" type="button" class="btn btn-default">4</button>
+                <button id="sq5" type="button" class="btn btn-default">5</button>
+              </div>
+            <b>Good</b>
+          </form>
+        </div>
+      </div> <!-- /recall -->
+
+      <div class="vr"></div>
+      
+      <!-- After section -->
+      <div id="after" class="col-md-4 text-center context">
+        <h4>After Sleep</h4>
+        <div class="context-bubble">
+          <img src="icons/map.png">
+          <p id="loc">
+            Location
+          </p>
+        </div>
+        <div class="context-bubble">
+          <img src="icons/walk.png">
+          <p id="move">
+            Movement
+          </p>
+        </div>
+        <div class="context-bubble">
+          <img src="icons/app.png">
+          <p id="app">
+            Application
+          </p>
+        </div>
+        <div class="context-bubble">
+          <img src="icons/phone.png">
+          <p id="call">
+            Phonebook
+          </p>
+        </div>
+        <div class="context-bubble">
+          <img src="icons/text.png">
+          <p id="msg">
+            Texts
+          </p>
+        </div>
+        <div class="context-bubble">
+          <img src="icons/internet.png">
+          <p id="net">
+            Internet
+          </p>
+        </div>
+      </div> <!-- /after -->
+    </div>
+  </section>
+
+  <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+  <!-- Custom Theme JavaScript -->
+  <script src="js/grayscale.js"></script>
+  <script src="js/fetch-data.js"></script>
+  <script src="js/index.js"></script>
 
 </body>
 
