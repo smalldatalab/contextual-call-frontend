@@ -29,9 +29,12 @@ for (var i = 0; i <= range; i++) {
     var date = moment(loginInfo.start, "MM-DD-YYYY").add(i, 'days')
     recallModels[i] = {
         date : date.format("MM/DD/YYYY"),
-        sleepTimeResponse : false,
-        wakeTimeResponse : false,
-        sleepQualityResponse : false,
+        // sleepTimeResponse : false,
+        // wakeTimeResponse : false,
+        // sleepQualityResponse : false,
+        sleepTimeConfidence : 0,
+        wakeTimeConfidence : 0,
+        sleepQualityConfidence : 0,
         sleepTime : "",
         wakeTime : "",
         sleepQuality : 0
@@ -68,32 +71,20 @@ RSVP.all(cuesPromises).then(function(contextModels){
 
         var resetRecall = function() {
 
-            if (recallModels[index].sleepTimeResponse) {
-                $('#st-re').prop('checked', true);
-                $("#sleep-time").val(recallModels[index].sleepTime);
-            }
-            else {
-                $('#st-no-re').prop('checked', true);
-                $("#sleep-time").val('');
+            $("#sleep-time").val(recallModels[index].sleepTime);
+            $("#wakeup-time").val(recallModels[index].wakeupTime);
+
+            var resetButton = function(stem, value) {
+                $('#'+ stem + ' .active').removeClass('active');
+                if (recallModels[index][value] > 0) {
+                    $('#'+stem+recallModels[index][value]).addClass('active');
+                }
             }
 
-            if (recallModels[index].wakeTimeResponse) {
-                $('#wt-re').prop('checked', true);
-                $("#wakeup-time").val(recallModels[index].wakeupTime);
-            }
-            else {
-                $('#wt-no-re').prop('checked', true);
-                $("#wakeup-time").val('');
-            }
-
-            $('#recall .active').removeClass('active');
-            if (recallModels[index].sleepQualityResponse && recallModels[index].sleepQuality > 0) {
-                $('#sq-re').prop('checked', true);
-                console.log(recallModels[index].sleepQuality);
-                $('#sq'+recallModels[index].sleepQuality).addClass('active');
-            }
-            else
-                $('#sq-no-re').prop('checked', true);
+            resetButton('sq', "sleepQuality");
+            resetButton('sc', "sleepTimeConfidence");
+            resetButton('wc', "wakeTimeConfidence");
+            resetButton('sqc', "sleepQualityConfidence");
         }
 
 // Setting up context
@@ -104,61 +95,60 @@ RSVP.all(cuesPromises).then(function(contextModels){
 
 // Saving the recall
         var saveRecall = function() {
-
-            if (recallModels[index].sleepTimeResponse)
-                recallModels[index].sleepTime = $("#sleep-time").val();
-            if (recallModels[index].wakeTimeResponse)
-                recallModels[index].wakeupTime = $("#wakeup-time").val();
+            // if (recallModels[index].sleepTimeResponse)
+            recallModels[index].sleepTime = $("#sleep-time").val();
+            // if (recallModels[index].wakeTimeResponse)
+            recallModels[index].wakeupTime = $("#wakeup-time").val();
         }
 
         setup();
 
         /*----------------------------- SETTING UP HANDLERS -----------------------------*/
 
-// Handling sleep quality clicks
-        var sqButtons = [1,2,3,4,5]
-        sqButtons.forEach(function (i) {
-            $('#sq'+i).click(function () {
+        var setupButtons = function (stem, value) {
+            var buttons = [1,2,3,4,5];
+            buttons.forEach(function(i) {
+                $('#'+stem+i).click(function () {
+                    var curActive = $('#'+stem+' .active');
+                    curActive.removeClass('active');
 
-                var curActive = $('#recall .active');
-                curActive.removeClass('active');
-
-                if (curActive[0] != this) {
-                    $(this).addClass('active');
-                    recallModels[index].sleepQuality = i;
-                    recallModels[index].sleepQualityResponse = true;
-                    $('#sq-re').prop('checked', true);
-                }
-                else {
-                    recallModels[index].sleepQuality = 0;
-                    recallModels[index].sleepQualityResponse = false;
-                    $('#sq-no-re').prop('checked', true);
-                }
+                    if (curActive[0] != this) {
+                        $(this).addClass('active');
+                        recallModels[index][value] = i;
+                    }
+                    else {
+                        recallModels[index][value] = 0;
+                    }
+                })
             })
-        })
+        }
 
-// Handling radio button clicks
-        $('#st-no-re').click(function () {
-            recallModels[index].sleepTimeResponse = false;
-        })
-        $('#st-re').click(function () {
-            recallModels[index].sleepTimeResponse = true;
-        })
-        $('#wt-no-re').click(function () {
-            recallModels[index].wakeTimeResponse = false;
-        })
-        $('#wt-re').click(function () {
-            recallModels[index].wakeTimeResponse = true;
-        })
-        $('#sq-no-re').click(function () {
-            var curActive = $('#recall .active');
-            curActive.removeClass('active');
-            recallModels[index].sleepQuality = 0;
-            recallModels[index].sleepQualityResponse = false;
-        })
-        $('#sq-re').click(function () {
-            recallModels[index].sleepQualityResponse = true;
-        })
+        setupButtons('sq', "sleepQuality");
+        setupButtons('sc', "sleepTimeConfidence");
+        setupButtons('wc', "wakeTimeConfidence");
+        setupButtons('sqc', "sleepQualityConfidence");
+
+        // $('#st-no-re').click(function () {
+        //     recallModels[index].sleepTimeResponse = false;
+        // })
+        // $('#st-re').click(function () {
+        //     recallModels[index].sleepTimeResponse = true;
+        // })
+        // $('#wt-no-re').click(function () {
+        //     recallModels[index].wakeTimeResponse = false;
+        // })
+        // $('#wt-re').click(function () {
+        //     recallModels[index].wakeTimeResponse = true;
+        // })
+        // $('#sq-no-re').click(function () {
+        //     var curActive = $('#recall .active');
+        //     curActive.removeClass('active');
+        //     recallModels[index].sleepQuality = 0;
+        //     recallModels[index].sleepQualityResponse = false;
+        // })
+        // $('#sq-re').click(function () {
+        //     recallModels[index].sleepQualityResponse = true;
+        // })
 
 // Handling previous/next day
         $('#prev').click(function () {
