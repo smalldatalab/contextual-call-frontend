@@ -79,35 +79,70 @@
       <!-- Recall section -->
       <div id="recall" class="col-md-4 text-center">
         <div class="query">
-          <h4>When did you go to sleep?</h4>
+          <h4>I fell asleep at:</h4>
           <form class="times">
-            <input id="st-no-re" name="sleep" type="radio" checked>I don't remember<br>
-            <input id="st-re" name="sleep" type="radio">I slept at:
             <input type="time" id="sleep-time">
           </form>
-        </div>
-        <div class="query">
-          <h4>When did you wake up?</h4>
-          <form class="times">
-            <input id="wt-no-re" name="wakeup" type="radio" checked>I don't remember<br>
-            <input id="wt-re" name="wakeup" type="radio">I woke up at:
-            <input type="time" id="wakeup-time">
+          <br>
+          <h4>How confident are you with your answer?</h4>
+          <form>
+            <b>Not</b>
+            <div class="btn-group" id="sc">
+              <button id="sc1" type="button" class="btn btn-default">1</button>
+              <button id="sc2" type="button" class="btn btn-default">2</button>
+              <button id="sc3" type="button" class="btn btn-default">3</button>
+              <button id="sc4" type="button" class="btn btn-default">4</button>
+              <button id="sc5" type="button" class="btn btn-default">5</button>
+            </div>
+            <b>Very</b>
           </form>
         </div>
+        <br>
         <div class="query">
-          <h4>How was the quality of your sleep?</h4>
+          <h4>I woke up at:</h4>
+          <form class="times">
+            <input type="time" id="wakeup-time">
+          </form>
+          <br>
+          <h4>How confident are you with your answer?</h4>
           <form>
-            <input id="sq-no-re" name="quality" type="radio" checked>I don't remember<br>
-            <input id="sq-re" name="quality" type="radio">
-              <b>Poor</b>
-              <div class="btn-group">
-                <button id="sq1" type="button" class="btn btn-default">1</button>
-                <button id="sq2" type="button" class="btn btn-default">2</button>
-                <button id="sq3" type="button" class="btn btn-default">3</button>
-                <button id="sq4" type="button" class="btn btn-default">4</button>
-                <button id="sq5" type="button" class="btn btn-default">5</button>
-              </div>
+            <b>Not</b>
+            <div class="btn-group" id="wc">
+              <button id="wc1" type="button" class="btn btn-default">1</button>
+              <button id="wc2" type="button" class="btn btn-default">2</button>
+              <button id="wc3" type="button" class="btn btn-default">3</button>
+              <button id="wc4" type="button" class="btn btn-default">4</button>
+              <button id="wc5" type="button" class="btn btn-default">5</button>
+            </div>
+            <b>Very</b>
+          </form>
+        </div>
+        <br>
+        <div class="query">
+          <h4>How was the quality of sleep?</h4>
+          <form>
+            <b>Poor</b>
+            <div class="btn-group">
+              <button id="sq1" type="button" class="btn btn-default">1</button>
+              <button id="sq2" type="button" class="btn btn-default">2</button>
+              <button id="sq3" type="button" class="btn btn-default">3</button>
+              <button id="sq4" type="button" class="btn btn-default">4</button>
+              <button id="sq5" type="button" class="btn btn-default">5</button>
+            </div>
             <b>Good</b>
+          </form>
+          <br>
+          <h4>How confident are you with your answer?</h4>
+          <form>
+            <b>Not</b>
+            <div class="btn-group" id="sqc">
+              <button id="sqc1" type="button" class="btn btn-default">1</button>
+              <button id="sqc2" type="button" class="btn btn-default">2</button>
+              <button id="sqc3" type="button" class="btn btn-default">3</button>
+              <button id="sqc4" type="button" class="btn btn-default">4</button>
+              <button id="sqc5" type="button" class="btn btn-default">5</button>
+            </div>
+            <b>Very</b>
           </form>
         </div>
       </div> <!-- /recall -->
