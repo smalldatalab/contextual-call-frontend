@@ -3,7 +3,8 @@ var loginInfo = {"mainUrl" : rootUrl + "index.html",
                  "loginUrl" : "http://lifestreams.smalldata.io/contextual-recall/login.html",
                  "lifestreamsLoginUrl": "http://lifestreams.smalldata.io/login"};
 var datePickerToISO8601 = function(str){
-  return  str.split("/").reverse().join("-")
+  var eles = str.split("/");
+  return  [eles[2], eles[0], eles[1]].join("-")
 };
 
 function getURL(){

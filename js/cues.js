@@ -34,11 +34,11 @@ function app (apps, beforeSleep){
         var div = $("<div>");
         $("<span>").html("Used ").appendTo(div);
         $("<a>")
-            .attr('href', "https://play.google.com/store/search?q=" + app["app_name"])
+            .attr('href', app["app"])
             .attr('target', "_blank")
             .html(app["app_name"])
             .appendTo(div);
-        $("<span>").html(" for " + app["minutes"].toFixed(0) + " minutes at " + moment(app["time"]).format('h:mm a')).appendTo(div);
+        $("<span>").html(" for " + moment.duration( app["minutes"], "minutes").humanize() + " at " + moment(app["time"]).format('h:mm a')).appendTo(div);
 
         return div;
 
@@ -53,14 +53,56 @@ function webpage (webpages, beforeSleep){
     if(webpage){
         var div = $("<div>");
         $("<span>").html("Browse ").appendTo(div);
-        $("<em>")
-            .html(webpage["title"])
-            .appendTo(div);
+        $("<em>").append($("<a>").html(webpage["title"])
+                                 .attr('target', "_blank")
+                                 .attr("href", webpage["url"]))
+
+                 .appendTo(div);
         $("<span>").html(" at " + moment(webpage["time"]).format('h:mm a')).appendTo(div);
 
         return div;
 
     }
     console.log(webpages, beforeSleep, html);
+    return html;
+}
+
+function sms (msgs, beforeSleep){
+    var msg = beforeSleep ? msgs[msgs.length-1] : msgs[0];
+    var html = "";
+    if(msg){
+        var div = $("<div>");
+        $("<span>").html(msg["type"] == "Send" ?  "Sent " : "Received ").appendTo(div);
+        $("<em>")
+            .html(msg["body"])
+            .appendTo(div);
+        $("<span>").html((msg["type"] == "Send" ?  " from " : " to ") + (msg["name"] || msg["phone"])).appendTo(div);
+        $("<span>").html(" at " + moment(webpage["time"]).format('h:mm a')).appendTo(div);
+
+
+        return div;
+
+    }
+    console.log(msgs, beforeSleep, html);
+    return html;
+}
+
+function phoneCall (calls, beforeSleep){
+    var call = beforeSleep ? calls[calls.length-1] : calls[0];
+    var html = "";
+    if(call){
+        var div = $("<div>");
+        var diff = moment(call["end"]).diff(moment(call["time"]));
+        $("<span>").html(call["type"] == "Call" ?  "Called " : "Received call from ").appendTo(div);
+
+        $("<span>").html(call["name"] || call["phone"]).appendTo(div);
+        $("<span>").html(" at " + moment(call["time"]).format('h:mm a')).appendTo(div);
+        $("<span>").html(" for " + moment.duration( diff).humanize()).appendTo(div);
+
+
+        return div;
+
+    }
+    console.log(calls, beforeSleep, html);
     return html;
 }

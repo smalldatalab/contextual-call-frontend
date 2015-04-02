@@ -358,37 +358,36 @@ img::-moz-selection {
 body {
     webkit-tap-highlight-color: rgba(255,255,255,.2);
 }
+.container {
+    width: 80%;
+}
 
-#context .context-bubble {
+div.context-bubble{
     border: 5px inset white;
     border-radius: 5px;
     margin-bottom: 10px;
     font-size: 20px;
     padding: 10px 45px;
+    height: 150px;
 }
 
-#context .context-bubble img {
-    position: absolute;
-    top: 0;
-    left: 0;
+.context-bubble img {
+
     padding: 5px;
-    border-right: 5px inset white;
-    border-bottom: 5px inset white;
-    border-radius: 5px;
 }
 
 .content-section#recall {
     padding-top: 0px;
 }
 
-.content-section#recall form {
+.content-section #recall form {
     display:inline-block;
     text-align: left;
 }
 
-.content-section#recall h4 {
-    margin-top: 30px;
-    margin-bottom: 20px;
+.content-section #recall h4 {
+    margin-top: 100px;
+    margin-bottom: 0px;
 }
 
 input[type=time] {
