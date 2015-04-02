@@ -378,7 +378,7 @@ body {
 }
 
 .content-section#recall {
-    padding-top: 20px;
+    padding-top: 0px;
 }
 
 .content-section#recall form {
@@ -386,8 +386,9 @@ body {
     text-align: left;
 }
 
-.content-section#recall form.times {
-    margin-top:20px;
+.content-section#recall h4 {
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 input[type=time] {
